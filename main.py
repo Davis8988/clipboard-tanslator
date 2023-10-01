@@ -73,15 +73,21 @@ def translate(text):
     translated_text = ''
     text = text.lower()
     for letter in text:
+        if letter in ["'",';','"',',','.','/'] and last_letter_heb:
+            translated_text += keyword_he_to_en_dict[letter]
+            continue
+        if letter in ["'",';','"',',','.','/'] and not last_letter_heb:
+            translated_text += keyword_en_to_he_dict[letter]
+            continue
         if letter in keyword_en_to_he_dict:
             translated_text += keyword_en_to_he_dict[letter]
+            last_letter_heb = False
         elif letter in keyword_he_to_en_dict:
             translated_text += keyword_he_to_en_dict[letter]
+            last_letter_heb = True
         else:
             translated_text += letter
     return translated_text
-
-# user_input = input('Enter your text: ')
 
 pc.copy(translate(pc.paste()))
 
