@@ -44,10 +44,5 @@ call venv\Scripts\activate.bat
 
 ## ❌ Uninstall
 
-- Delete the repo folder and any `.exe` files  
-- (If installed with Chocolatey):
-
-```powershell
-choco uninstall autohotkey.install python -y
-```
+- Stop the AutoHotKey process and delete the 2 `.exe` files  
 
