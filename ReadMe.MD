@@ -23,7 +23,7 @@ Get [AutoHotkey v1.1](https://www.autohotkey.com/) and [Python 3.6+](https://www
 
 ---
 
-## ▶️ Usage
+## 🔨 Build
 
 - Clone the repository  
 - Create & activate **venv**: 
@@ -37,10 +37,14 @@ call venv\Scripts\activate.bat
 (venv)  pip install -r requirements.txt
 ```
 - Run `build_exe.bat` to compile both scripts (NOTE: Needs to be done from the venv activated console)  
+
+---
+
+## ▶️ Usage
 - Double-click `ahk_listener_clipboard-tanslator.exe` to start  
 - Select text and press `Ctrl + Shift + Z` to translate
 
-> 💡 If the Python executable is not located next to the AHK EXE, set the environment variable `CLIPBOARD_TRANSLATOR_EXE_PATH` to its full path before running.
+💡 NOTE: If the Python executable is not located next to the AHK EXE, set the environment variable `CLIPBOARD_TRANSLATOR_EXE_PATH` to its full path before running.
 
 ---
 
