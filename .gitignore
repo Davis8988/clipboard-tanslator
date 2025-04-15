@@ -1,0 +1,21 @@
+# Executables
+*.exe
+
+# AutoHotkey compiled files
+*.ahk.bak
+*.bin
+*.out
+*.tmp
+
+# Python virtual environment
+venv/
+__pycache__/
+
+# PyInstaller build artifacts
+build/
+dist/
+*.spec
+
+# OS junk files
+.DS_Store
+Thumbs.db

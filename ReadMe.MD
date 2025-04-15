@@ -1,16 +1,54 @@
 
-This repository contains a simple AutoHotkey+Python script.
-to translate the selected text from English to Hebrew or Hebrew to English.
+# Clipboard-Tanslator
 
-To use the script, follow these steps:
+## 🔧 Requirements
 
-1. Install AutoHotkey V2. You can download the installer from the AutoHotkey website.
-2. Clone this repository.
-3. Open the run_my_script.ahk file in a text editor and change the path to the Python script.
-4. in the same file you can change the keyboard shortcut to run the script (in this case Ctrl+Shift+F1).
-5. Double-click on the run_my_script.ahk file.
-6. Press Ctrl+Shift+F1 to run the Python script.
-7. The Python script will now be running.
+- AutoHotkey v1.1  
+- Python 3.6 or higher  
+- (Optional) Chocolatey for easy installation  
 
+---
 
+## ⚙️ Prerequisites
+
+**Using Chocolatey (recommended):**
+
+```powershell
+choco install autohotkey.install --version=1.1.33.10 -y
+choco install python --version=3.10.11 -y
+```
+
+**Manual install:**  
+Get [AutoHotkey v1.1](https://www.autohotkey.com/) and [Python 3.6+](https://www.python.org/downloads/).
+
+---
+
+## 🔨 Build
+
+- Clone the repository  
+- Create & activate **venv**: 
+```bash
+python -m venv venv
+
+call venv\Scripts\activate.bat
+```
+- pip install: 
+```bash
+(venv)  pip install -r requirements.txt
+```
+- Run `build_exe.bat` to compile both scripts (NOTE: Needs to be done from the venv activated console)  
+
+---
+
+## ▶️ Usage
+- Double-click `ahk_listener_clipboard-tanslator.exe` to start  
+- Select text and press `Ctrl + Shift + Z` to translate
+
+💡 NOTE: If the Python executable is not located next to the AHK EXE, set the environment variable `CLIPBOARD_TRANSLATOR_EXE_PATH` to its full path before running.
+
+---
+
+## ❌ Uninstall
+
+- Stop the AutoHotKey process and delete the 2 `.exe` files  
 
