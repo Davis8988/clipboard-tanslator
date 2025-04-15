@@ -11,6 +11,8 @@ logging.basicConfig(
     datefmt='%H:%M:%S'
 )
 
+logging.info("=== Script Started ===")
+
 # English to Hebrew key mapping
 keyword_en_to_he_dict = {
     'q': '/',
@@ -82,74 +84,70 @@ keyword_he_to_en_dict = {
     '.': '/',
 }
 
+
+def detect_language(text):
+    en_count = 0
+    he_count = 0
+    for ch in text:
+        ch_lower = ch.lower()
+        if ch_lower in keyword_en_to_he_dict:
+            en_count += 1
+        elif ch_lower in keyword_he_to_en_dict:
+            he_count += 1
+    logging.debug(f"Language detection - EN: {en_count}, HE: {he_count}")
+    return 'en' if en_count >= he_count else 'he'
+
 def translate(text):
     logging.debug("Starting translation")
     translated_text = ''
-    text = text.lower()
-    logging.debug(f"Input text: {text}")
+    lang = detect_language(text)
+    logging.debug(f"Detected language: {lang}")
     
-    # Find first letter with known direction
-    last_letter_heb = None
-    for ch in text:
-        if ch in keyword_en_to_he_dict:
-            last_letter_heb = False
-            logging.debug("Detected English input based on character: " + ch)
-            break
-        elif ch in keyword_he_to_en_dict:
-            last_letter_heb = True
-            logging.debug("Detected Hebrew input based on character: " + ch)
-            break
-    if last_letter_heb is None:
-        logging.debug("No known characters found, defaulting to English.")
-        last_letter_heb = False  # fallback
-        
     for letter in text:
-        logging.debug(f"Processing letter: {letter}")
-        if letter in ["'", ';', '"', ',', '.', '/']:
-            if last_letter_heb:
-                translated = keyword_he_to_en_dict.get(letter, letter)
-                logging.debug(f"Translated special (HE): {letter} → {translated}")
-                translated_text += translated
-            else:
-                translated = keyword_en_to_he_dict.get(letter, letter)
-                logging.debug(f"Translated special (EN): {letter} → {translated}")
-                translated_text += translated
-            continue
-        if letter in keyword_en_to_he_dict:
-            translated = keyword_en_to_he_dict[letter]
-            translated_text += translated
-            last_letter_heb = False
-            logging.debug(f"Translated EN → HE: {letter} → {translated}")
-        elif letter in keyword_he_to_en_dict:
-            translated = keyword_he_to_en_dict[letter]
-            translated_text += translated
-            last_letter_heb = True
-            logging.debug(f"Translated HE → EN: {letter} → {translated}")
-        else:
-            translated_text += letter
-            logging.debug(f"Letter not mapped, passed as-is: {letter}")
+        original_case = letter.isupper()
+        lower_letter = letter.lower()
 
-    logging.debug(f"Final translated text: {translated_text}")
+        if lang == 'en' and lower_letter in keyword_en_to_he_dict:
+            translated = keyword_en_to_he_dict[lower_letter]
+        elif lang == 'he' and lower_letter in keyword_he_to_en_dict:
+            translated = keyword_he_to_en_dict[lower_letter]
+        else:
+            translated = letter  # keep as-is if not found
+            logging.debug(f"No mapping for letter: {letter}")
+            translated_text += translated
+            continue
+
+        # preserve original case
+        if original_case:
+            translated = translated.upper()
+        translated_text += translated
+
+        logging.debug(f"{letter} -> {translated}")
+
+    logging.debug(f"Translated result: {translated_text}")
     return translated_text
 
 try:
     logging.info("Reading clipboard content...")
-    original = pc.paste()
-    logging.info(f"Original clipboard content: {original}")
-    logging.info("Performing translation...")
-    result = translate(original)
+    original_text = pc.paste()
+    logging.info(f"Original clipboard content: {original_text}")
+
+    logging.info("Translating...")
+    result = translate(original_text)
+
     logging.info("Updating clipboard with translated content...")
     pc.copy(result)
     logging.error("")
     logging.info("✅ Translation complete and copied to clipboard.")
     logging.error("")
-except Exception as e:
+except Exception:
     logging.error("")
-    logging.error("❌ Error occurred during execution.")
+    logging.error("❌ An error occurred:")
     logging.error(traceback.format_exc())
     logging.info("Exiting in 10 seconds...")
     time.sleep(10)
     sys.exit(1)
 
+logging.info("")
 logging.info("=== Script Completed ===")
-logging.error("")
+logging.info("")
