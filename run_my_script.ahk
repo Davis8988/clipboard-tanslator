@@ -1,2 +1,2 @@
 ﻿
-^+F1::Run "C:\Users\edenh\PycharmProjects\clipboard-tanslator\main.py"
+^!`::Run "C:\Git\clipboard-tanslator\main.py"

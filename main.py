@@ -72,6 +72,19 @@ keyword_he_to_en_dict = {
 def translate(text):
     translated_text = ''
     text = text.lower()
+    
+    # Find first letter with known direction
+    last_letter_heb = None
+    for ch in text:
+        if ch in keyword_en_to_he_dict:
+            last_letter_heb = False
+            break
+        elif ch in keyword_he_to_en_dict:
+            last_letter_heb = True
+            break
+    if last_letter_heb is None:
+        last_letter_heb = False  # fallback
+        
     for letter in text:
         if letter in ["'",';','"',',','.','/'] and last_letter_heb:
             translated_text += keyword_he_to_en_dict[letter]
