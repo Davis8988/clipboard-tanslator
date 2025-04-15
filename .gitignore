@@ -10,9 +10,6 @@ build/
 dist/
 *.spec
 
-# Batch scripts (if you don't want to include them)
-*.bat
-
 # OS junk files
 .DS_Store
 Thumbs.db
