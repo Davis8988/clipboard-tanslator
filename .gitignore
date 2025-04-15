@@ -1,0 +1,18 @@
+# Exe
+*.exe
+
+# Python venv
+venv/
+__pycache__/
+
+# PyInstaller build artifacts
+build/
+dist/
+*.spec
+
+# Batch scripts (if you don't want to include them)
+*.bat
+
+# OS junk files
+.DS_Store
+Thumbs.db

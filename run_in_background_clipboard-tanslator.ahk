@@ -1,0 +1,1 @@
+﻿^!`::Run A_ScriptDir "\clipboard-tanslator.exe"
