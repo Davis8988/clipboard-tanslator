@@ -1,4 +1,21 @@
-﻿^!`::
+﻿; ====================================================================================
+; Script Name : clipboard-tanslator.ahk
+; Author      : David Yair
+; Contact     : davismarsel@gmail.com
+; Description : This script translates selected text (Hebrew ↔ English) using an
+;               external executable (`clipboard-tanslator.exe`) and pastes the result.
+;
+; Hotkey      : CTRL + SHIFT + Z
+;               - Copies selected text
+;               - Runs the translator executable (minimized)
+;               - Pastes the translated result
+;               - Restores the original clipboard content
+;
+; Requirements: - AutoHotkey v1
+;               - clipboard-tanslator.exe (compiled Python script)
+;               - Environment variable `CLIPBOARD_TRANSLATOR_EXE_PATH` (optional)
+; ====================================================================================
+^+z::
     Translate_Clipboard()
 	return
 
@@ -26,7 +43,7 @@ Translate_Clipboard()
     }
 
     ; Run translator and wait for completion
-    RunWait %clipboardTranslatorExePath%
+    RunWait %clipboardTranslatorExePath%, , Min
     if (ErrorLevel != 0) {
         MsgBox ❌ clipboard-tanslator.exe failed to run. Exit code: %ErrorLevel%
         Clipboard := Clip_Save
