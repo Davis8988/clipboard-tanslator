@@ -1,7 +1,13 @@
-# Exe
+# Executables
 *.exe
 
-# Python venv
+# AutoHotkey compiled files
+*.ahk.bak
+*.bin
+*.out
+*.tmp
+
+# Python virtual environment
 venv/
 __pycache__/
 
