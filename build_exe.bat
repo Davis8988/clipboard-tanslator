@@ -3,15 +3,15 @@ REM ============================================================================
 REM Script Name : build_exe.bat
 REM Purpose     : Build standalone executables from:
 REM                 - Python script: clipboard-tanslator.py (using PyInstaller)
-REM                 - AHK script   : autoHotKey_listener_clipboard-tanslator.ahk (using Ahk2Exe)
+REM                 - AHK script   : ahk_listener_clipboard-tanslator.ahk (using Ahk2Exe)
 REM Requirements: Python, PyInstaller, and AutoHotkey (with Ahk2Exe) must be installed.
 REM Output      : Creates EXEs in the current folder.
 REM ====================================================================================
 
 :: Setup paths
 set pyScript=%~dp0clipboard-tanslator.py
-set ahkScript=%~dp0autoHotKey_listener_clipboard-tanslator.ahk
-set ahkExe=%~dp0autoHotKey_listener_clipboard-tanslator.exe
+set ahkScript=%~dp0ahk_listener_clipboard-tanslator.ahk
+set ahkExe=%~dp0ahk_listener_clipboard-tanslator.exe
 
 
 
