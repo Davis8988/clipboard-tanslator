@@ -28,7 +28,7 @@ Get [AutoHotkey v1.1](https://www.autohotkey.com/) and [Python 3.6+](https://www
 ```bash
 python -m venv venv
 
-call venv\Scripts\Activate.bat
+call venv\Scripts\activate.bat
 ```
 - pip install: 
 ```bash
