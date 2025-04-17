@@ -43,30 +43,39 @@ func detectLanguage(text string) string {
 // translateText performs the actual translation based on detected language
 func translateText(text string) string {
 	var translatedText string
+
 	lang := detectLanguage(text)
 	log.Printf("Detected language: %s", lang)
+
 	for _, letter := range text {
 		originalCase := letter >= 'A' && letter <= 'Z'
-		lowerLetter := strings.ToLower(string(letter))
+		lowerLetter   := strings.ToLower(string(letter))
 
 		var translated string
-		if lang == "en" {
+		switch {
+		case lang == "en" && keywordEnToHe[lowerLetter] != "":
 			translated = keywordEnToHe[lowerLetter]
-		} else if lang == "he" {
+		case lang == "he" && keywordHeToEn[lowerLetter] != "":
 			translated = keywordHeToEn[lowerLetter]
-		} else {
-			translated = string(letter)
+		default:
+			translated = string(letter) // keep as‑is if no mapping
+			log.Printf("No mapping for letter: '%c'", letter)
+			translatedText += translated
+			continue
 		}
 
+		// preserve original English casing
 		if originalCase {
 			translated = strings.ToUpper(translated)
 		}
-
 		translatedText += translated
+		log.Printf("%c -> %s", letter, translated)
 	}
 
+	log.Printf("Translated result: %s", translatedText)
 	return translatedText
 }
+
 
 func main() {
 	// Custom log format: Only date & time without file/line information
