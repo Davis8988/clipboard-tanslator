@@ -3,7 +3,7 @@
 # Clipboard‑Translator
 
 ## 🔧 Requirements
-- **Go 1.22+** (required to build the translator executable)  
+- **Go 1.23+** (required to build the translator executable)  
 - **AutoHotkey v1.1** – needed only for the hot‑key listener  
 - (Optional) **Chocolatey** – easiest way to install the above on Windows  
 

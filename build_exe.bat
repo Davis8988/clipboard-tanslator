@@ -14,6 +14,8 @@ REM ============================================================================
 :: ----------------------------------------------------------------------
 set goSrc=%~dp0clipboard-tanslator.go
 set goExe=%~dp0clipboard-tanslator.exe
+set GOPROXY=https://proxy.golang.org,direct
+
 
 echo.
 echo 🔧 Compiling Go program: "%goSrc%"
