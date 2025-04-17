@@ -12,7 +12,7 @@
 ;               - Restores the original clipboard content
 ;
 ; Requirements: - AutoHotkey v1
-;               - clipboard-tanslator.exe (compiled Python script)
+;               - clipboard-tanslator.exe (compiled golang script)
 ;               - Environment variable `CLIPBOARD_TRANSLATOR_EXE_PATH` (optional)
 ; ====================================================================================
 ^+z::
