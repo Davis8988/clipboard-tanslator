@@ -1,12 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"strings"
-	"time"
-	"golang.org/x/term"
 	"os"
+	"strings"
 )
 
 // English to Hebrew key mapping
@@ -25,6 +22,7 @@ var keywordHeToEn = map[string]string{
 	".": "/",
 }
 
+// detectLanguage detects if the text is more English or Hebrew based on character mapping
 func detectLanguage(text string) string {
 	enCount, heCount := 0, 0
 	for _, ch := range text {
@@ -35,6 +33,7 @@ func detectLanguage(text string) string {
 			heCount++
 		}
 	}
+	log.Printf("Language detection - EN: %d, HE: %d", enCount, heCount)
 	if enCount >= heCount {
 		return "en"
 	}
@@ -44,6 +43,7 @@ func detectLanguage(text string) string {
 func translate(text string) string {
 	var translatedText string
 	lang := detectLanguage(text)
+	log.Printf("Detected language: %s", lang)
 	for _, letter := range text {
 		originalCase := letter >= 'A' && letter <= 'Z'
 		lowerLetter := strings.ToLower(string(letter))
@@ -68,20 +68,26 @@ func translate(text string) string {
 }
 
 func main() {
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
+	// Custom log format: Only date & time without file/line information
+	log.SetFlags(log.Ldate | log.Ltime)
 
 	log.Println("=== Script Started ===")
 
-	// Read clipboard content (simulated as input)
-	var originalText string
-	fmt.Println("Enter text to simulate clipboard content:")
-	fmt.Scanln(&originalText)
-	log.Printf("Original clipboard content: %s", originalText)
+	// Check if the first argument is provided
+	if len(os.Args) < 2 {
+		log.Println("❌ Error: No input text provided.")
+		log.Println("Exiting...")
+		os.Exit(1)
+	}
+
+	// Read input from the first argument
+	originalText := os.Args[1]
+	log.Printf("Original text: %s", originalText)
 
 	log.Println("Translating...")
 	result := translate(originalText)
 
-	log.Println("Updated clipboard with translated content...")
+	log.Println("Updated text with translated content...")
 	log.Printf("Translated: %s", result)
 
 	log.Println("✅ Translation complete.")
