@@ -137,9 +137,9 @@ try:
 
     logging.info("Updating clipboard with translated content...")
     pc.copy(result)
-    logging.error("")
+    logging.info("")
     logging.info("✅ Translation complete and copied to clipboard.")
-    logging.error("")
+    logging.info("")
 except Exception:
     logging.error("")
     logging.error("❌ An error occurred:")
