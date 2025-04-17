@@ -40,7 +40,8 @@ func detectLanguage(text string) string {
 	return "he"
 }
 
-func translate(text string) string {
+// translateText performs the actual translation based on detected language
+func translateText(text string) string {
 	var translatedText string
 	lang := detectLanguage(text)
 	log.Printf("Detected language: %s", lang)
@@ -85,7 +86,7 @@ func main() {
 	log.Printf("Original text: %s", originalText)
 
 	log.Println("Translating...")
-	result := translate(originalText)
+	result := translateText(originalText)
 
 	log.Println("Updated text with translated content...")
 	log.Printf("Translated: %s", result)
