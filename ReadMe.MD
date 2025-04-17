@@ -1,54 +1,55 @@
 
-# Clipboard-Tanslator
+
+# Clipboard‑Translator
 
 ## 🔧 Requirements
-
-- AutoHotkey v1.1  
-- Python 3.6 or higher  
-- (Optional) Chocolatey for easy installation  
+- **Go 1.23+** (required to build the translator executable)  
+- **AutoHotkey v1.1** – needed only for the hot‑key listener  
+- (Optional) **Chocolatey** – easiest way to install the above on Windows  
 
 ---
 
-## ⚙️ Prerequisites
+## ⚙️ Installing the toolchain
 
-**Using Chocolatey (recommended):**
-
+### Using Chocolatey (recommended)
 ```powershell
+choco install golang -y                 # installs latest Go
 choco install autohotkey.install --version=1.1.33.10 -y
-choco install python --version=3.10.11 -y
 ```
 
-**Manual install:**  
-Get [AutoHotkey v1.1](https://www.autohotkey.com/) and [Python 3.6+](https://www.python.org/downloads/).
+### Manual install  
+* https://go.dev/dl – download the Windows installer for Go  
+* https://www.autohotkey.com/ – AutoHotkey v1.1 installer  
+
+Verify Go is on PATH:
+```powershell
+go version
+```
 
 ---
 
 ## 🔨 Build
-
-- Clone the repository  
-- Create & activate **venv**: 
 ```bash
-python -m venv venv
-
-call venv\Scripts\activate.bat
+git clone <repo> clipboard-translator
+cd clipboard-translator
+build_exe.bat              # builds clipboard‑tanslator.exe and the AHK listener
 ```
-- pip install: 
-```bash
-(venv)  pip install -r requirements.txt
-```
-- Run `build_exe.bat` to compile both scripts (NOTE: Needs to be done from the venv activated console)  
+`build_exe.bat` will  
+1. compile **clipboard‑tanslator.go** → *clipboard‑tanslator.exe* (static, no dependencies)  
+2. compile **ahk_listener_clipboard-tanslator.ahk** → *ahk_listener_clipboard-tanslator.exe*  
 
 ---
 
 ## ▶️ Usage
-- Double-click `ahk_listener_clipboard-tanslator.exe` to start  
-- Select text and press `Ctrl + Shift + Z` to translate
+1. Start **ahk_listener_clipboard-tanslator.exe** (it stays in the tray).  
+2. Select text anywhere and press **Ctrl + Shift + Z** → text is translated in place.
 
-💡 NOTE: If the Python executable is not located next to the AHK EXE, set the environment variable `CLIPBOARD_TRANSLATOR_EXE_PATH` to its full path before running.
+> **Note**  
+> If *clipboard‑tanslator.exe* is not next to the AHK EXE, set  
+> `CLIPBOARD_TRANSLATOR_EXE_PATH` to its full path before launching the listener.
 
 ---
 
 ## ❌ Uninstall
-
-- Stop the AutoHotKey process and delete the 2 `.exe` files  
-
+1. Exit the AutoHotkey listener (tray icon → Exit).  
+2. Delete the generated `.exe` files (listener & translator).  

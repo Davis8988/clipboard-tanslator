@@ -19,3 +19,23 @@ dist/
 # OS junk files
 .DS_Store
 Thumbs.db
+
+# -------------------------------------------------
+# Go language
+# -------------------------------------------------
+
+# Go build artifacts
+*.a
+*.o
+*.test
+*.out
+
+# Go workspace directories
+bin/
+pkg/
+
+# Go coverage reports
+coverage.out
+
+# Go modules vendor directory (when `go mod vendor` is used)
+vendor/
