@@ -17,6 +17,13 @@
 ; ====================================================================================
 ^+z::
     Translate_Clipboard()
+	
+	; Change keyboard language
+	SwitchLanguage()
+	
+	; Finish with a beep!
+	SoundBeep, 523, 120
+	
 	return
 
 Translate_Clipboard()
@@ -67,4 +74,10 @@ Translate_Clipboard()
     ; Restore original clipboard
     Sleep 100
     Clipboard := Clip_Save
+}
+
+SwitchLanguage()
+{
+    Send, {Alt Down}{Shift Down}{Shift Up}{Alt Up}
+	return
 }
