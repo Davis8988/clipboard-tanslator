@@ -89,7 +89,7 @@ func main() {
 	// Priority 1: first command‑line argument (if present and non‑empty)
 	if len(os.Args) >= 2 && strings.TrimSpace(os.Args[1]) != "" {
 		originalText = os.Args[1]
-		log.Printf("Original text (from arg):  '%s'", originalText)
+		log.Printf("Original text (1st arg):  '%s'", originalText)
 	} else {
 		// Priority 2: clipboard
 		clipText, err := clipboard.ReadAll()
@@ -104,7 +104,7 @@ func main() {
 			os.Exit(1)
 		}
 		originalText = clipText
-		log.Printf("Original text (from clipboard):  '%s'", originalText)
+		log.Printf("Original text (clipboard):  '%s'", originalText)
 	}
 
 	log.Println("Translating…")
