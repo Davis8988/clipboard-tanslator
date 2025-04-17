@@ -78,34 +78,38 @@ func translateText(text string) string {
 	return translatedText
 }
 
+// getOriginalText returns user input from arg #1 if present,
+// otherwise from the clipboard.  It exits (code 1) on error/empty.
+func getOriginalText() string {
+	if len(os.Args) >= 2 && strings.TrimSpace(os.Args[1]) != "" {
+		txt := os.Args[1]
+		log.Printf("Original text (1st arg):  '%s'", txt)
+		return txt
+	}
+
+	clipText, err := clipboard.ReadAll()
+	if err != nil {
+		log.Printf("❌ Failed to read clipboard: %v", err)
+		log.Println("Exiting…")
+		os.Exit(1)
+	}
+	if strings.TrimSpace(clipText) == "" {
+		log.Println("❌ No input text provided via args or clipboard.")
+		log.Println("Exiting…")
+		os.Exit(1)
+	}
+	log.Printf("Original text (clipboard):  '%s'", clipText)
+	return clipText
+}
+
+
 func main() {
 	// Custom log format: Only date & time without file/line information
 	log.SetFlags(log.Ldate | log.Ltime)
 
 	log.Println("=== Script Started ===")
 
-	var originalText string
-
-	// Priority 1: first command‑line argument (if present and non‑empty)
-	if len(os.Args) >= 2 && strings.TrimSpace(os.Args[1]) != "" {
-		originalText = os.Args[1]
-		log.Printf("Original text (1st arg):  '%s'", originalText)
-	} else {
-		// Priority 2: clipboard
-		clipText, err := clipboard.ReadAll()
-		if err != nil {
-			log.Printf("❌ Failed to read clipboard: %v", err)
-			log.Println("Exiting…")
-			os.Exit(1)
-		}
-		if strings.TrimSpace(clipText) == "" {
-			log.Println("❌ No input text provided via args or clipboard.")
-			log.Println("Exiting…")
-			os.Exit(1)
-		}
-		originalText = clipText
-		log.Printf("Original text (clipboard):  '%s'", originalText)
-	}
+	originalText := getOriginalText()
 
 	log.Println("Translating…")
 	result := translateText(originalText)
