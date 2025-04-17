@@ -169,10 +169,17 @@ func main() {
 	log.Println("Translating…")
 	result := translateText(originalText)
 
+	// ── NEW: copy result back to clipboard ───────────────────────────────
+	log.Println("Updating clipboard with translated content…")
+	if err := clipboard.WriteAll(result); err != nil {
+		log.Printf("❌ Failed to write to clipboard: %v", err)
+	} else {
+		log.Println("✅ Translation complete and copied to clipboard.")
+	}
+	// ─────────────────────────────────────────────────────────────────────
+
 	// Print translated text to stdout so a wrapper script can capture it
 	log.Println("Updated text with translated content…")
 	log.Printf("Translated: %s", result)
-
-	log.Println("✅ Translation complete.")
-	log.Println("=== Script Completed ===")
+    log.Println("=== Script Finished ===")
 }
