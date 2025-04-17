@@ -4,6 +4,8 @@ import (
 	"log"
 	"os"
 	"strings"
+
+	"github.com/atotto/clipboard"
 )
 
 // English to Hebrew key mapping
@@ -49,7 +51,7 @@ func translateText(text string) string {
 
 	for _, letter := range text {
 		originalCase := letter >= 'A' && letter <= 'Z'
-		lowerLetter   := strings.ToLower(string(letter))
+		lowerLetter := strings.ToLower(string(letter))
 
 		var translated string
 		switch {
@@ -76,29 +78,42 @@ func translateText(text string) string {
 	return translatedText
 }
 
-
 func main() {
 	// Custom log format: Only date & time without file/line information
 	log.SetFlags(log.Ldate | log.Ltime)
 
 	log.Println("=== Script Started ===")
 
-	// Check if the first argument is provided
-	if len(os.Args) < 2 {
-		log.Println("❌ Error: No input text provided.")
-		log.Println("Exiting...")
-		os.Exit(1)
+	var originalText string
+
+	// Priority 1: first command‑line argument (if present and non‑empty)
+	if len(os.Args) >= 2 && strings.TrimSpace(os.Args[1]) != "" {
+		originalText = os.Args[1]
+		log.Printf("Original text (from arg): %s", originalText)
+	} else {
+		// Priority 2: clipboard
+		clipText, err := clipboard.ReadAll()
+		if err != nil {
+			log.Printf("❌ Failed to read clipboard: %v", err)
+			log.Println("Exiting…")
+			os.Exit(1)
+		}
+		if strings.TrimSpace(clipText) == "" {
+			log.Println("❌ No input text provided via args or clipboard.")
+			log.Println("Exiting…")
+			os.Exit(1)
+		}
+		originalText = clipText
+		log.Printf("Original text (from clipboard): %s", originalText)
 	}
 
-	// Read input from the first argument
-	originalText := os.Args[1]
-	log.Printf("Original text: %s", originalText)
-
-	log.Println("Translating...")
+	log.Println("Translating…")
 	result := translateText(originalText)
 
-	log.Println("Updated text with translated content...")
+	// Print translated text to stdout so a wrapper script can capture it
+	log.Println("Updated text with translated content…")
 	log.Printf("Translated: %s", result)
+	println(result)
 
 	log.Println("✅ Translation complete.")
 	log.Println("=== Script Completed ===")
