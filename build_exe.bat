@@ -2,40 +2,43 @@
 REM ====================================================================================
 REM Script Name : build_exe.bat
 REM Purpose     : Build standalone executables from:
-REM                 - Python script: clipboard-tanslator.py (using PyInstaller)
+REM                 - Go program   : clipboard-tanslator.go  (using go build)
 REM                 - AHK script   : ahk_listener_clipboard-tanslator.ahk (using Ahk2Exe)
-REM Requirements: Python, PyInstaller, and AutoHotkey (with Ahk2Exe) must be installed.
+REM Requirements: Go toolchain and AutoHotkey (with Ahk2Exe) must be installed and
+REM               on PATH (or adjust paths below).
 REM Output      : Creates EXEs in the current folder.
 REM ====================================================================================
 
-:: Setup paths
-set pyScript=%~dp0clipboard-tanslator.py
-set ahkScript=%~dp0ahk_listener_clipboard-tanslator.ahk
-set ahkExe=%~dp0ahk_listener_clipboard-tanslator.exe
+:: ----------------------------------------------------------------------
+:: Go program
+:: ----------------------------------------------------------------------
+set goSrc=%~dp0clipboard-tanslator.go
+set goExe=%~dp0clipboard-tanslator.exe
 
-
-
-:: Python Script
 echo.
-echo 🔧 Compiling Python script: "%pyScript%"
-echo Executing: pyinstaller --onefile "%pyScript%" --distpath .
+echo 🔧 Compiling Go program: "%goSrc%"
+echo Executing: go build -trimpath -ldflags "-s -w" -o "%goExe%" "%goSrc%"
 echo.
 
-pyinstaller --onefile "%pyScript%" --distpath .
+go build -trimpath -ldflags "-s -w" -o "%goExe%" "%goSrc%"
 if not "%ERRORLEVEL%" == "0" (
     echo.
-    echo ❌ ERROR: Failed to build the Python executable.
+    echo ❌ ERROR: Failed to build the Go executable.
     pause
     exit /b 1
 )
 
 echo.
-echo ✅ Python EXE created successfully.
+echo ✅ Go EXE created successfully: %goExe%
 echo.
 echo.
 
+:: ----------------------------------------------------------------------
+:: AutoHotkey v1
+:: ----------------------------------------------------------------------
+set ahkScript=%~dp0ahk_listener_clipboard-tanslator.ahk
+set ahkExe=%~dp0ahk_listener_clipboard-tanslator.exe
 
-:: AutoHotKey v1
 echo 🔧 Compiling AutoHotkey script: "%ahkScript%"
 echo Executing: "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" /in "%ahkScript%" /out "%ahkExe%"
 echo.
