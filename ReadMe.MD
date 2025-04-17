@@ -38,7 +38,7 @@ build_exe.bat              # builds clipboard‑tanslator.exe and the AHK listen
 1. compile **clipboard‑tanslator.go** → *clipboard‑tanslator.exe* (static, no dependencies)  
 2. compile **ahk_listener_clipboard-tanslator.ahk** → *ahk_listener_clipboard-tanslator.exe*  
 
-(No Python/venv is needed anymore.)
+
 
 ---
 
