@@ -11,7 +11,7 @@ import (
 // English to Hebrew key mapping
 var keywordEnToHe = map[string]string{
     "q": "/",
-    "w": "'",
+    // "w": "'",
     "e": "ק",
     "r": "ר",
     "t": "א",
@@ -30,8 +30,8 @@ var keywordEnToHe = map[string]string{
     "k": "ל",
     "l": "ך",
     ";": "ף",
-    "'": ",",
-    "\"": ",",
+    // "'": ",",
+    // "\"": ",",
     "z": "ז",
     "x": "ס",
     "c": "ב",
@@ -47,7 +47,7 @@ var keywordEnToHe = map[string]string{
 // Hebrew to English key mapping
 var keywordHeToEn = map[string]string{
     "/": "q",
-    "'": "w",
+    // "'": "w",
     "ק": "e",
     "ר": "r",
     "א": "t",
@@ -66,7 +66,7 @@ var keywordHeToEn = map[string]string{
     "ל": "k",
     "ך": "l",
     "ף": ";",
-    ",": "'",
+    // ",": "'",
     "ז": "z",
     "ס": "x",
     "ב": "c",
