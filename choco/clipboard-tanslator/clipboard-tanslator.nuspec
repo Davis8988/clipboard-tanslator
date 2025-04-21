@@ -1,0 +1,17 @@
+<package>
+  <metadata>
+    <id>clipboard-tanslator</id>
+    <version>1.0.0</version>
+    <title>Clipboard Translator</title>
+    <authors>David Yair</authors>
+    <owners>David Yair</owners>
+    <projectUrl>https://github.com/Davis8988/clipboard-tanslator</projectUrl>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <tags>clipboard translator golang autohotkey</tags>
+    <description>A simple Hebrew to English (or reversed) keyboard translator using hot keys: CTRL + SHIFT + Z</description>
+  </metadata>
+  <files>
+    <!-- this section controls what actually gets packaged into the Chocolatey package -->
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
