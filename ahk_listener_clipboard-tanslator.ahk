@@ -4,16 +4,23 @@
 ; Contact     : davismarsel@gmail.com
 ; Description : This script translates selected text (Hebrew ↔ English) using an
 ;               external executable (`clipboard-tanslator.exe`) and pastes the result.
+;               It also switches the keyboard language and provides feedback with a beep.
 ;
 ; Hotkey      : CTRL + SHIFT + Z
 ;               - Copies selected text
 ;               - Runs the translator executable (minimized)
 ;               - Pastes the translated result
 ;               - Restores the original clipboard content
+;               - Switches the keyboard language
+;               - Plays a beep sound to indicate completion
 ;
 ; Requirements: - AutoHotkey v1
 ;               - clipboard-tanslator.exe (compiled golang script)
 ;               - Environment variable `CLIPBOARD_TRANSLATOR_EXE_PATH` (optional)
+;
+; Functions   : - Translate_Clipboard(): Handles the translation process, including
+;                 clipboard management and running the external executable.
+;               - SwitchLanguage(): Simulates ALT+SHIFT to switch the keyboard language.
 ; ====================================================================================
 ^+z::
     Translate_Clipboard()
